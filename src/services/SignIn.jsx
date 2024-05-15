@@ -1,11 +1,11 @@
-
-import { API } from "../utilities/Constants.jsx"
 import axios from 'axios';
 
 const SignIn = (Data, setUser) => 
 {
+    const API = import.meta.env.VITE_STRAPI_API_URL;
+
     const user = {identifier: Data.get("Email"), password: Data.get("Password")};
- 
+
     if(user.identifier && user.password)
     {
         axios.post(`${API}/auth/local`, user)

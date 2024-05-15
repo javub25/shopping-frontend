@@ -1,9 +1,10 @@
 import EmailValidator from '../utilities/EmailValidator.jsx';
-import { API } from "../utilities/Constants.jsx"
 import axios from 'axios';
 
 const SignUp = (Data, SetSignUp) => 
   {
+    const API = import.meta.env.VITE_STRAPI_API_URL;
+
     const user = {username: Data.get("Name"), email: Data.get("Email"), password: Data.get("Password")};
 
       const emailStatus = EmailValidator(user.email);
