@@ -1,23 +1,32 @@
-import EmailValidator from '../utilities/EmailValidator.jsx';
 import axios from 'axios';
+import useToastContainer from '@hooks/useToastContainer.jsx';
 
-const SignUp = (Data, SetSignUp) => 
+const SignUp = (Data, setFormStatus, EmailValidator) => 
   {
     const API = import.meta.env.VITE_STRAPI_API_URL;
+    const { showSuccessToast, showErrorToast } = useToastContainer();
 
+    //User object will send to Strapi with the respective data from the form
     const user = {username: Data.get("Name"), email: Data.get("Email"), password: Data.get("Password")};
 
-      const emailStatus = EmailValidator(user.email);
-
-      if(emailStatus)
-      {
-          axios.post(`${API}/auth/local/register`, user)
+    //We get a boolean that will verify if email format is valid or not
+    const emailStatus = EmailValidator(user.email);
+    
+    //Email must to be valid to register a new user to Strapi
+    if(emailStatus && user.password)
+    {
+        axios.post(`${API}/api/auth/local/register`, user)
             .then((res) => {
-              SetSignUp(false)
-              console.log(res);
+                setFormStatus(oldValue => ({...oldValue, signUp: false}));
+                if(res.status === 200)
+                    showSuccessToast("Sucessfull registered! 👌");
             })
             .catch((error) => {
-                alert("This user doesn't exist")
+                if(error.code === "ERR_NETWORK")
+                    showErrorToast("No internet connection! 🤯");
+                else
+                    showErrorToast("User already exists! 🤯");
+
                 throw new Error(error);
             });
         }
