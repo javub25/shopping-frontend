@@ -1,3 +1,5 @@
+import daisyui from "daisyui";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -11,6 +13,5 @@ export default {
       'tablet': {'min': '525px', 'max': '750px'},
     },
   },
-  plugins: [],
+  plugins: [daisyui],
 }
-
