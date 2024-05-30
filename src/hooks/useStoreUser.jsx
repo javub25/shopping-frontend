@@ -1,18 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+//We keep the user in the local storage every time it changes 
 const useStoreUser = (user, setUser) => 
 {
-    useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (storedUser) {
-            setUser(storedUser);
-        }
-        return () => {}
-    }, []);
+// Initialize storedUser state with the value from localStorage
+const [storedUser, setStoredUser] = useState(() => {
+    const userFromStorage = localStorage.getItem('user');
+    return userFromStorage ? JSON.parse(userFromStorage) : { name: 'not logged in', email: 'not logged in'};    
+  });
+
+  // Update storedUser when user prop changes
+  useEffect(() => {
+    const newUser = {
+        name: user.name,
+        email: user.email
+    };
+      setStoredUser(newUser);   
+      localStorage.setItem('user', JSON.stringify(newUser));
     
-    // Update user in localStorage when it changes
-    useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(user));
-        return () => {}
-    }, [user]);
+      return () => {}
+  }, [user]);
+
+  // Update user state the first time component mounts
+  useEffect(() => {
+    setUser(storedUser);
+  }, []);
 }
+
 export default useStoreUser;
