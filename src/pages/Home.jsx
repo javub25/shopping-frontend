@@ -1,17 +1,24 @@
-import woman from "../assets/icons/woman.webp";
+import woman from "@assets/icons/woman.webp";
+import { useContext } from "react";
+import {CartContext} from "@contexts/CartContext.jsx";
+import useCartStorage from "@hooks/useCartStorage.jsx";
 
 const Home = () => {
+    
+    const [cart] = useContext(CartContext);
+    useCartStorage(cart);
+
     return (
         <>
             <main className="my-8">
                 <article
                     className="w-full mx-auto h-64 rounded-md overflow-hidden bg-cover bg-center"
                     style={{ backgroundImage: `url(${woman})`}}>
-
+                        
                     <div className="bg-gray-900 bg-opacity-50 flex items-center h-full relative">
                         <div className="px-4 max-w-xl absolute bottom-0">
-                            <a href="/products" className="flex items-center mt-4 mb-[13px] px-3 py-2 bg-green-600 text-white text-sm font-medium rounded 
-                            hover:bg-green-500 focus:outline-none focus:bg-green-500 hover:text-white">
+                            <a href="/products" className="flex items-center mt-4 mb-[13px] px-3 py-2 bg-green-600 text-white text-sm font-normal rounded 
+                            hover:bg-green-500 focus:outline-none focus:bg-green-500 hover:text-white font-sans">
                                 Shop Now
                                 <svg className="h-[2.5rem] w-[2.5rem] mx-2"
                                     fill="none"
@@ -26,7 +33,7 @@ const Home = () => {
                         </div>
                     </div>
                 </article>
-            </main>
+            </main>            
         </>
     )
 }
