@@ -16,7 +16,7 @@ const Related = (props) =>
         <>
         {related?.length!==0 &&
             <>
-                <h1 className="text-black text-xl text-center my-12 font-sans"><b>Products Related to this product</b></h1>
+                <h1 className="text-black text-xl text-center mt-20 mb-12 font-sans"><b>Products Related to this product</b></h1>
 
                 <div className="min-h-[210px] p-3 relative">
                     <div className="w-[160px] mobile:w-[140px] mx-auto">
@@ -49,7 +49,6 @@ const Related = (props) =>
                                             </div>
                                         }
                                     </div>
-                                
                             })
                         }               
                     </div>

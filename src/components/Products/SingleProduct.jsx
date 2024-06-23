@@ -1,9 +1,15 @@
 import { useContext } from 'react';
 //We're gonna get access to state property from wouter
 import { useHistoryState } from "wouter/use-browser-location";
-import Related from "@components/Products/Related.jsx"
+
+import Related from "@components/Products/Related.jsx";
+import Feedback from "@components/Products/Feedback/Feedback.jsx";
+import ShowFeedback from "@components/Products/Feedback/ShowFeedback.jsx";
+
 import {CartContext} from "@contexts/CartContext.jsx";
 import { ProductContext } from '@contexts/ProductContext.jsx';
+import { UserContext } from "@contexts/UserContext.jsx";
+
 import useCartStorage from "@hooks/useCartStorage.jsx";
 import NotFound from "@pages/NotFound.jsx";
 
@@ -14,6 +20,7 @@ const SingleProduct = () =>
    access the state property. */
     const state = useHistoryState();
     const product = state === null ? "NotFound" : state.productData;
+    const {user, } = useContext(UserContext);
 
     //We use cart context to addProduct to Cart and syncronize data between them.
     const [cart, setCart, addProduct] = useContext(CartContext);
@@ -61,6 +68,13 @@ const SingleProduct = () =>
                                         </div>
                                     </div>
                                 </div>
+                            </article>
+
+                            <article className="py-20">
+                                <Feedback productId={product.id} user = {user.name}/>
+                            </article>
+                            <article>
+                                <ShowFeedback productId={product.id}/>
                             </article>
 
                             <article>
