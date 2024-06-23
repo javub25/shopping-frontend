@@ -3,13 +3,13 @@ import homeIcon from "@assets/icons/home.svg";
 import hamburger from "@assets/icons/hamburger.svg";
 import close from "@assets/icons/close.svg";
 //Getting the initials avatar from a user
-import InitialsAvatar from "react-initials-avatar";
 import { useLocation } from "wouter";
 import { UserContext } from '@contexts/UserContext.jsx';
 import { CartContext } from "@contexts/CartContext.jsx";
 import { ProductContext } from "@contexts/ProductContext.jsx"
 import categoriesList from "@services/GetCategories.jsx";
 import bagShop from "@assets/icons/shopping-bag.svg";
+import Avatar from "@components/User/Avatar.jsx";
 
 
 const Header = ({onOpen}) => 
@@ -95,12 +95,12 @@ const Header = ({onOpen}) =>
                                     <a className="text-black text-base font-normal font-sans" href="/login" title="Login"
                                     style={{color: "black"}}>
                                         {/*Initial Avatar it will show when the user is logged in on Desktop*/}
-                                        {user.email!=='not logged in' ?  
-                                            <InitialsAvatar className="mx-auto mb-4 w-[30px] bg-[#ff5f6d] p-0.5 rounded-xl text-white" name={user.name} />
+                                        {user.email!=='not logged in' ?
+                                            <Avatar user={user.name}/>  
                                         : "Login"}
                                     </a>
                                         {/*Show the logout only when the user is logged in.*/}
-                                        {user.email!=='not logged in' && <h2 className="text-black text-base font-sans" onClick={logoutUser}>Logout</h2>}
+                                        {user.email!=='not logged in' && <h2 className="text-black text-base font-sans mt-2" onClick={logoutUser}>Logout</h2>}
                                 </li>    
                             </ul>
                         }
@@ -157,8 +157,10 @@ const Header = ({onOpen}) =>
                             <a className="w-[30px] text-black text-base font-normal font-sans" href="/login" title="Login"
                             style={{color: "black"}}>
                                 {/*Initial Avatar it will show when the user is logged in on Desktop*/}
-                                {user.email!=='not logged in' ? 
-                                    <InitialsAvatar className="bg-[#ff5f6d] p-0.5 rounded-xl text-white" name={user.name} /> : 
+                                {/*<InitialsAvatar className="bg-[#ff5f6d] p-0.5 rounded-xl text-white" name={user.name} />*/} 
+                                {user.email!=='not logged in' ?
+                                    <Avatar user={user.name}/>  
+                                    : 
                                 "Login"}
                             </a>
                             {/*Show the logout only when the user is logged in.*/}

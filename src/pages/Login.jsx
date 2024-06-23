@@ -1,25 +1,25 @@
-import { useState, useContext } from "react";
-import InitialsAvatar from "react-initials-avatar";
-//Icons
+import { useState, useContext, useRef, lazy, Suspense} from "react";
 import shoppingCart from "@assets/icons/shopping-cart.svg";
 import {UserContext} from '@contexts/UserContext';
 import {CartContext} from '@contexts/CartContext';
 import useCartStorage from '@hooks/useCartStorage.jsx';
-import login from "@services/SignIn.jsx";
+import signIn from "@services/SignIn.jsx";
 import registration from '@services/SignUp.jsx';
-import GetProductsList from "@services/GetProductsUser";
 import { CheckName, CheckEmail, CheckPassword } from "@utilities/FormValidator.jsx";
 
+ //We show GetProductsUser once the user is logged in
+const LazyGetProductsUser = lazy(() => import('@services/GetProductsUser.jsx'));
 
 const Login = () => {
+    const ControllerRef = useRef(null);
+    const API = import.meta.env.VITE_STRAPI_API_URL;
     //State that will manage Form fields
     const [FormStatus, setFormStatus] = useState({signUp: true, name: true, email: true, password: true});
     const {user, setUser} = useContext(UserContext);
     const [cart] = useContext(CartContext);
     useCartStorage(cart);
-    
-    const productsUser = GetProductsList();
 
+    
     //It will change the form to sign up or login
     const setSignUp = () => setFormStatus(oldValue => ({...oldValue, signUp: !oldValue.signUp}))
 
@@ -38,43 +38,49 @@ const Login = () => {
                 password: CheckPassword(Data.get("Password"))
             })
         )
-        FormStatus.signUp ? registration(Data, setFormStatus, CheckEmail): login(Data, setUser);
+        FormStatus.signUp ? registration(Data, setFormStatus, CheckEmail, ControllerRef): signIn(Data, setUser, ControllerRef);
     }
-    const API = import.meta.env.VITE_STRAPI_API_URL;
-    
+
+
     return (
         <>
             <main className="flex py-16 items-center justify-center">
                     {user.email!=="not logged in" ? (
                         <section>
-                            {/*Initial Avatar it will show when the user is logged in on Desktop*/}
-                            <InitialsAvatar className="text-3xl mx-auto mb-6 w-[73px] bg-[#ff5f6d] p-4 rounded-3xl text-white" name={user.name} />                            
-                            <h1 className="text-3xl font-semibold text-black font-sans">Welcome back {user.name}!</h1>
-                            
-                            {productsUser?.data.length > 0 &&
-                                <>
-                                 <div className="mt-16 flex mobile:flex-col gap-6 items-center justify-center">
-                                        <img src={shoppingCart} alt="Shopping Cart"/>
-                                        <h2 className="text-xl text-black font-sans">Your Recent Purchases</h2>
-                                    </div>
-
-                                    <div className="mt-16 flex items-center justify-center flex-wrap gap-8">
-                                        {productsUser?.data.map((item => 
-                                            {
-                                                const {Name, Image} = item.attributes;
-
-                                                return (
-                                                    <div className="w-64 h-64 mx-auto">
-                                                        <img src={`${API}${Image.data.attributes.url}`} 
-                                                            alt={Name} className="w-24 h-32 mx-auto"/>
-                                                        <h3 className="text-center p-8 text-black font-sans">{Name}</h3>
-                                                    </div>
-                                                ) 
-                                            }
-                                        ))}
-                                    </div>                                
-                                </>
-                            }                   
+                            <h1 className="text-3xl font-semibold text-black font-sans">Welcome back {user.name}! 👋</h1>
+                            <div className="mt-16 flex mobile:flex-col gap-6 items-center justify-center">
+                                <img src={shoppingCart} alt="Shopping Cart"/>
+                                    <h2 className="text-xl text-black font-sans">Your Recent Purchases</h2>
+                            </div>
+                            <Suspense fallback="Loading products">
+                                <LazyGetProductsUser>
+                                    {(products) => {
+                                        return(  
+                                            <>
+                                                {products.data.length > 0  &&
+                                                        <> 
+                                                            <div className="mt-16 flex items-center justify-center flex-wrap gap-8">
+                                                                                                                                                                                                                 
+                                                                {products.data.map((item => {
+                                                                    const {Name, Image} = item.attributes;
+                                        
+                                                                        return (
+                                                                            <div className="w-64 h-64 mx-auto">
+                                                                                    <img src={`${API}${Image.data.attributes.url}`} 
+                                                                                        alt={Name} className="w-24 h-32 mx-auto"/>
+                                                                                    <h3 className="text-center p-8 text-black font-sans">{Name}</h3>
+                                                                            </div>
+                                                                        ) 
+                                                                }
+                                                                ))}
+                                                            </div>                                                 
+                                                        </>
+                                                }
+                                            </>
+                                        )
+                                    }}
+                                </LazyGetProductsUser>
+                            </Suspense>
                         </section>
 
                     ):(

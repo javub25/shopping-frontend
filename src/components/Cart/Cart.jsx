@@ -45,7 +45,7 @@ const Cart = ({ isOpen, onClose }) => {
                                         <>  
                                             <h2 className="text-[#213547] text-lg pb-[40px] text-center font-sans">Your cart is empty.</h2>
                                             <a href="/products" className="text-center rounded-md p-4 bg-[#ffc371] text-[#213547] 
-                                            hover:bg-[#ffcf8d] hover:text-[#213547] mb-[40px] w-[120px] mx-auto font-sans">
+                                            hover:bg-[#ffcf8d] hover:text-[#213547] mb-[40px] w-[120px] mx-auto font-sans font-normal">
                                                 Buy Now!
                                             </a> 
                                         </>
@@ -97,7 +97,7 @@ const Cart = ({ isOpen, onClose }) => {
                                             })}
 
                                             <button className="text-sm text-center rounded-md p-[14px] bg-[#ffc371] text-[#213547] 
-                                            hover:bg-[#ffcf8d] hover:text-[#213547] w-[190px] mx-auto font-medium font-sans" 
+                                            hover:bg-[#ffcf8d] hover:text-[#213547] w-[190px] mx-auto font-normal font-sans" 
                                             onClick={() => removeCart(setCart)}>Remove Cart</button>
 
                                             <div className="mb-[30px] flex items-center justify-between border-b border-neutral-200 pb-1 pt-[2rem] dark:border-neutral-700">
@@ -106,7 +106,7 @@ const Cart = ({ isOpen, onClose }) => {
                                                     <p className="text-gray-900 text-right text-base font-sans">{parseFloat(TotalPrice.toFixed(2))} €</p>
                                             </div>
 
-                                            <button onClick={BuyItems} className="mx-auto block w-[230px] rounded-md bg-[#ffc371] text-[#213547] hover:text-black hover:bg-[#ffcf8d] p-3 text-center text-sm font-medium font-sans">
+                                            <button onClick={BuyItems} className="mx-auto block w-[230px] rounded-md bg-[#ffc371] text-[#213547] hover:text-black hover:bg-[#ffcf8d] p-3 text-center text-sm font-normal font-sans">
                                                 Proceed to Checkout
                                             </button>
                                         </>
