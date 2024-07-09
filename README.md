@@ -4,7 +4,7 @@
  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 
-![Project GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWxja3g4eTFwcjk5eXF6ZjZrNGxndXB0Z2NvNnlwOG1sNjdnZXd5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aHf50TENsdN0O9ryT3/giphy.gif)
+![Project GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTcxdmFhcTZic3g5NHdhcXdvNTJtNWxjNGZxc3NlYmQ3OTYxc29rdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/utZUVb3TfXrAgco32D/giphy.gif)
 
 
 
