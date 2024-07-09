@@ -17,7 +17,7 @@ const ProductProvider = ({children}) =>
     
     //It will render products according price and categories
     const filterProducts = 
-        products?.data.filter((product => {
+        products?.data?.filter((product => {
             const {Price, categories} = product.attributes;
                 return ((Price < productsList.filterMaxPrice)
                 && (productsList.categories === "All" || productsList.categories === categories?.data[1].attributes.Name)) 

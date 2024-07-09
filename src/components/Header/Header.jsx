@@ -79,7 +79,7 @@ const Header = ({onOpen}) =>
                                             <summary>Categories</summary>
                                             <ul className="p-2 z-20">
                                                 {categories!==undefined  && 
-                                                    categories?.data.map((category) => 
+                                                    categories?.data?.map((category) => 
                                                         <li key={category.id} className="cursor-pointer text-black font-bold py-4"
                                                                 onClick={() => showCategories(category.attributes.Name)}>
                                                             {category.attributes.Name}
@@ -136,7 +136,7 @@ const Header = ({onOpen}) =>
                                         <ul className="z-20 absolute w-full bg-white top-full origine-top opacity-0 hidden flex-col group-hover/bouton:flex group-hover/bouton:opacity-100 transition-all shadow-xl">
                                                 {categories!==undefined && 
                                                         
-                                                    categories?.data.map((category) => <li key={category.id} className="cursor-pointer text-black font-bold font-sans py-4" onClick={() => showCategories(category.attributes.Name)}>
+                                                    categories?.data?.map((category) => <li key={category.id} className="cursor-pointer text-black font-bold font-sans py-4" onClick={() => showCategories(category.attributes.Name)}>
                                                             {category.attributes.Name}
                                                         </li>
                                                     )                                     
