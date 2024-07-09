@@ -45,7 +45,7 @@ const SingleProduct = () =>
                         <>
                             <article className="grid grid-cols-2 tablet:grid-cols-1 mobile:grid-cols-1 pt-16 place-content-center">
                                 <div>
-                                    <img src={`${API}${Image?.data?.attributes?.url}`} className="w-40 mx-auto tablet:pt-[30px] mobile:w-[124px] mb-4" />
+                                    <img src={`${Image?.data?.attributes?.url}`} className="w-40 mx-auto tablet:pt-[30px] mobile:w-[124px] mb-4" />
                                     <div className="my-4 bg-black text-white badge p-4 badge-outline font-sans">{categories.data[1].attributes.Name}</div> 
                                 </div>
                                 <div>

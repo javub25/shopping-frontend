@@ -9,7 +9,6 @@ const Products = () =>
 {
     const [filterProducts, productsList, setProductsList] = useContext(ProductContext);
     const changePrice = (e) => setProductsList(oldValue => ({...oldValue, filterMaxPrice: e.target.value}))
-    const API = import.meta.env.VITE_STRAPI_API_URL;
 
     const [cart] = useContext(CartContext);
     useCartStorage(cart);
@@ -59,7 +58,7 @@ const Products = () =>
                                         return (
                                             <div key={product.id} className="card w-full">
                                                <Link href="/product" state={{productData: product}}>
-                                                    <img width="120" src={`${API}${Image?.data?.attributes?.url}`} className="h-[180px] mobile:h-[124px] mb-8 mx-auto object-contain" alt={Name}/>
+                                                    <img width="120" src={`${Image?.data?.attributes?.url}`} className="h-[180px] mobile:h-[124px] mb-8 mx-auto object-contain" alt={Name}/>
                                                 </Link>
                                                
                                                 <div className="card-body pt-0 gap-y-12 relative">

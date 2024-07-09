@@ -12,7 +12,6 @@ const LazyGetProductsUser = lazy(() => import('@services/GetProductsUser.jsx'));
 
 const Login = () => {
     const ControllerRef = useRef(null);
-    const API = import.meta.env.VITE_STRAPI_API_URL;
     //State that will manage Form fields
     const [FormStatus, setFormStatus] = useState({signUp: true, name: true, email: true, password: true});
     const {user, setUser} = useContext(UserContext);
@@ -66,7 +65,7 @@ const Login = () => {
                                         
                                                                         return (
                                                                             <div className="w-64 h-64 mx-auto">
-                                                                                    <img src={`${API}${Image.data.attributes.url}`} 
+                                                                                    <img src={`${Image.data.attributes.url}`} 
                                                                                         alt={Name} className="w-24 h-32 mx-auto"/>
                                                                                     <h3 className="text-center p-8 text-black font-sans">{Name}</h3>
                                                                             </div>

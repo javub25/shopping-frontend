@@ -12,8 +12,6 @@ const CartProvider = ({children}) =>
     const newCart = [...cart];
 
     const addProduct = (product, cart, setCart) => {
-        const API = import.meta.env.VITE_STRAPI_API_URL;
-
         
         //We're looking for the current index of the existing product
         const index = cart.findIndex((productsCart => productsCart.id === product.id))
@@ -30,7 +28,7 @@ const CartProvider = ({children}) =>
 
             newCart.push({
                 id: product.id,
-                image: `${API}${Image?.data?.attributes?.url}`,
+                image: `${Image?.data?.attributes?.url}`,
                 name: Name,
                 quantity: 1, 
                 basePrice: Price,

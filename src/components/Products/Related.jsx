@@ -28,7 +28,7 @@ const Related = (props) =>
                                 return <div key={product.id} className={`w-[160px] mobile:w-[140px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white transition-all duration-300 
                                         ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
                                             <Link href="/product" state={{productData: product}}>
-                                                <img className="w-full" src={`${API}${Image?.data?.attributes?.url}`} alt={product.attributes.Name}/>
+                                                <img className="w-full" src={`${Image?.data?.attributes?.url}`} alt={product.attributes.Name}/>
                                             </Link>
                                                 
                                         {/*The previous and next arrows will appear when there is more than one related product.*/}

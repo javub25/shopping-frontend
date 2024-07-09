@@ -85,12 +85,12 @@
 
 7. **Descargar backup de la base de datos:**
 
-    [Backup DB Testing](https://drive.google.com/file/d/1_h1dZRv5TvJepz1jBNY_n7HdZdBi6SP4/view)
+    [Backup DB Testing](https://drive.google.com/file/d/1RiYDoiIaiO04BhyFlbY2FFITMVj0C7Og/view)
   
 
 8. **Importa la base de datos**
     ```bash 
-      npm strapi import -- -f backup_file
+      npm run strapi import -- -f backup_file
       #or
       yarn strapi import -f backup_file
     ```
