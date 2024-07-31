@@ -9,13 +9,13 @@
 
 
 
-## Comenzando 🚀
+## Getting started 🚀
 
 
-### Pre-requisitos 📋
+### Prerequisites 📋
 
 
-| Tecnología   | Versión    |
+| Technology   | Version    |
 |------------- |------------|
 | Vite         | ^5.2.0     |
 | Node.js      | ^18.7.1    |
@@ -23,15 +23,15 @@
 | Git          | ^2.37.x    |
 
 
-### Instalación 🔧
+### Installation 🔧
 
-1. **Crear una carpeta en tu equipo para el proyecto**
+1. **Create a folder on your computer for the project**
    ```bash
       mkdir tu-carpeta
       cd tu-carpeta
    ```
 
-2. **Clonar el repositorio del frontend / backend**
+2. **Clone frontend / backend repository**
    ```bash
       git clone "https://github.com/javub25/shopping-frontend.git"
       git clone "https://github.com/javub25/shopping-backend.git"
@@ -39,15 +39,15 @@
 
 #### Frontend
 
-3. **Instalar dependencias**
+3. **Install dependencies**
    ```bash
       cd shopping-frontend
       npm install
    ```
-4. **Configurar variables de entorno**
+4. **Setting environment variables**
 
-   - Crear un archivo **.env.development** en la raíz del proyecto.
-   - Añadir las siguientes variables del backend:
+   - Create a **.env.development** file in the root of the project.
+   - Add the following backend variables:
 
    ```bash
    VITE_STRAPI_API_URL=your_strapi_instance
@@ -55,17 +55,17 @@
 
 #### Backend
 
-5. **Instalar dependencias**
+5. **Install dependencies**
    ```bash
       cd shopping-backend
       npm install
    ```  
 
 
-6. **Configurar variables de entorno para conectarse a la base de datos**
+6. **Setting environment variables to connect to the database**
 
-   - Crea un archivo llamado **.env** en la raíz del proyecto.
-   - Añadir las siguientes variables:
+   - Create a file named **.env** in the root of the project.
+   - Add the following variables:
    
 
    ```bash
@@ -83,53 +83,53 @@
    ```  
 
 
-7. **Descargar backup de la base de datos:**
+7. **Download database backup:**
 
     [Backup DB Testing](https://drive.google.com/file/d/1RiYDoiIaiO04BhyFlbY2FFITMVj0C7Og/view)
   
 
-8. **Importa la base de datos**
+8. **Import the database**
     ```bash 
       npm run strapi import -- -f backup_file
       #or
       yarn strapi import -f backup_file
     ```
 
-9. **Iniciar aplicación de Strapi**
+9. **Start Strapi application**
    ```bash
       npm run develop  
       # or
       yarn develop
    ```
 
-10. **Iniciar frontend junto al backend**
+10. **Start frontend alongside backend**
     ```bash
      cd shopping-frontend 
      npm run dev
     ```
   
-### Construido con 🛠️
+### Built with 🛠️
 
-React - Libreria web para la creación de interfaz  
+React - Web library for interface creation  
 
-Strapi - CMS para la gestión del backend  
+Strapi - CMS for backend management  
 
-Vite - Empaquetador web  
+Vite - Web packager  
 
-Tailwind CSS - Framework CSS  
+Tailwind CSS - CSS Framework  
 
 
-### Notas addicionales
+### Additional notes
 
-Estas herramientas serán instaladas automáticamente a través de `npm install`:
+These tools will be installed automatically through `npm install`:
 
-| Tecnología            | Versión    | Funcionamento                             |
+| Technology            | Version    | Function                                  |
 |-----------------------|------------|------------------------------------------ |
-| Wouter                | ^3.1.2     | Libreria de routing                       |
-| React Toastify        | ^10.0.5    | Libreria de notificaciones                |
-| React Initials Avatar | ^1.1.2     | Libreria de creación de avatares          |
-| DaisyUI               | ^4.11.1    | Libreria de componentes                   |
-| Axios                 | ^1.6.8     | Libreria para realizar peticiones HTTP    |
+| Wouter                | ^3.1.2     | Routing library                           |
+| React Toastify        | ^10.0.5    | Notification library                      |
+| React Initials Avatar | ^1.1.2     | Avatar creation library                   |
+| DaisyUI               | ^4.11.1    | Component library                         |
+| Axios                 | ^1.6.8     | Library for making HTTP requests          |
 
 
 
