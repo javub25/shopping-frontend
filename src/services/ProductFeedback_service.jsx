@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import ApiClient from '@http/ApiClient.jsx';
 
 const API = import.meta.env.VITE_STRAPI_API_URL;
-let FeedbackMsg;
 const endpointStrapi = (productId) => `${API}/api/products/${productId}?fields=Comments`
 
 const getFeedbackProduct = (endpoint) => {
@@ -12,37 +11,8 @@ const getFeedbackProduct = (endpoint) => {
     return { request, cancelRequest}
 }
 
-// Updating the product with the new feedback
-const updateProductWithFeedback = async (response, endpoint, Feedback) =>
+const UpdateFeedback = ({Feedback, productId}) => 
 {
-    try
-    {
-        const {Comments} = response.data.data.attributes;
-        // Add the new feedback
-        const newFeedback = {
-            user: Feedback.user,
-            feedbackDate: `${Feedback.date.getDate()}/${Feedback.date.getMonth() + 1}/${Feedback.date.getFullYear()}`,
-            comment: Feedback.text
-        };
-        // Feedback list, containing old and new feedback.
-        const feedbackProduct = {
-            data: {Comments: [...Comments, newFeedback]}
-        };
-        // Update the existent product with the feedback updated
-        ApiClient (endpoint, {
-            method: "PUT",
-            data: feedbackProduct
-        })
-    }
-    catch(error)
-    {
-        console.error(error);
-    }
-}
-
-const UpdateFeedbackIfExists = ({Feedback, productId}) => 
-{
-    FeedbackMsg = Feedback.text;
     const endpoint = endpointStrapi(productId);
     
     useEffect(() => 
@@ -52,7 +22,24 @@ const UpdateFeedbackIfExists = ({Feedback, productId}) =>
         request.then((res =>
         {
             if(res?.status === 200) 
-                updateProductWithFeedback(res, endpoint, Feedback);
+            {
+                const {Comments} = res.data.data.attributes;
+                // Add the new feedback
+                const newFeedback = {
+                    user: Feedback.user,
+                    feedbackDate: `${Feedback.date.getDate()}/${Feedback.date.getMonth() + 1}/${Feedback.date.getFullYear()}`,
+                    comment: Feedback.text
+                };
+                // Feedback list, containing old and new feedback.
+                const feedbackProduct = {
+                    data: {Comments: [...Comments, newFeedback]}
+                };
+                // Update the existent product with the feedback updated
+                ApiClient (endpoint, {
+                    method: "PUT",
+                    data: feedbackProduct
+                })
+            }
         }))
         .catch((error => {
             console.error(error);
@@ -61,10 +48,7 @@ const UpdateFeedbackIfExists = ({Feedback, productId}) =>
         return () => {
             cancelRequest();
         }
-
-    }, [FeedbackMsg])
+    }, [Feedback.text])
 }
-//Get the current feedback message
-const getFeedbackMsg = async () => await FeedbackMsg;
 
-export { endpointStrapi, getFeedbackProduct, UpdateFeedbackIfExists, getFeedbackMsg};
+export { endpointStrapi, getFeedbackProduct, UpdateFeedback};

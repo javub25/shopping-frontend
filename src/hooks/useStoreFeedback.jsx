@@ -1,26 +1,37 @@
-import { useEffect } from "react";
-import { endpointStrapi, getFeedbackProduct, getFeedbackMsg } from "@services/ProductFeedback_service.jsx";
+import { useEffect, useRef } from "react";
+import { endpointStrapi, getFeedbackProduct} from "@services/ProductFeedback_service.jsx";
 
-const useStoreFeedback = (modifyFeedback, productId) => 
+const useStoreFeedback = (FeedbackData, setFeedback, productId) => 
 {
     const endpoint = endpointStrapi(productId);
-    const FeedbackMsg = getFeedbackMsg();
+    const cancelReqRef = useRef(null);
+
     //It needs to run whenever Feedback message changes or when the product changes
     useEffect(() => 
-    {
-        const { request, cancelRequest } = getFeedbackProduct(endpoint);
+    { 
+        const timer = setTimeout(() => 
+        {
+            const { request, cancelRequest } = getFeedbackProduct(endpoint);
+            cancelReqRef.current = cancelRequest;
+
             request.then((res => {
                 if(res?.status === 200)
                 {
                     const {Comments} = res.data.data.attributes;
-                    modifyFeedback(Comments);
+                    setFeedback(Comments);    
                 }
             }))
-            .catch((error => console.error(error)));
+            .catch((error => console.error(error)))
+        }, 500)       
+
+        return () => {
+            clearTimeout(timer);
             
-            return () => {
-                cancelRequest();
+            if(cancelReqRef.current)
+            {
+                cancelReqRef.current();
             }
-    }, [productId, FeedbackMsg])
+        }
+    }, [productId, FeedbackData.added])
 }
 export default useStoreFeedback;

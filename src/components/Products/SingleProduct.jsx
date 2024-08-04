@@ -9,6 +9,7 @@ import ShowFeedback from "@components/Products/Feedback/ShowFeedback.jsx";
 import {CartContext} from "@contexts/CartContext.jsx";
 import { ProductContext } from '@contexts/ProductContext.jsx';
 import { UserContext } from "@contexts/UserContext.jsx";
+import { FeedbackProvider } from "@contexts/FeedbackContext.jsx";
 
 import useCartStorage from "@hooks/useCartStorage.jsx";
 import NotFound from "@pages/NotFound.jsx";
@@ -32,8 +33,6 @@ const SingleProduct = () =>
     In case product variable returns nothing, we return an empty object
     */
     const {Name, Description, Price, categories, Image} = product.attributes || {};
-
-    const API = import.meta.env.VITE_STRAPI_API_URL;
 
     return (
         <>
@@ -70,12 +69,12 @@ const SingleProduct = () =>
                                 </div>
                             </article>
 
-                            <article className="py-20">
-                                <Feedback productId={product.id} user = {user.name}/>
-                            </article>
-                            <article>
+                            <FeedbackProvider>
+                                <article className="py-20">
+                                    <Feedback productId={product.id} user = {user.name}/>
+                                </article>
                                 <ShowFeedback productId={product.id}/>
-                            </article>
+                            </FeedbackProvider>
 
                             <article>
                                 <Related 

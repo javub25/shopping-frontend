@@ -1,25 +1,41 @@
 
-import {useState} from "react";
+import {useState, useContext, useRef} from "react";
 import {Redirect} from "wouter";
 import close from "@assets/icons/close.svg";
-import { UpdateFeedbackIfExists } from "@services/ProductFeedback_service.jsx";
+import { FeedbackContext } from "@contexts/FeedbackContext.jsx";
+import { UpdateFeedback } from "@services/ProductFeedback_service.jsx";
+import { CheckFeedback } from "@utilities/FormValidator.jsx";
+import ToastMessage from "@utilities/ToastMessage.jsx";
 
 //Component to write feedback for a product and send it to Strapi
 const Feedback = ({productId, user}) =>
 {
     //State stores the date, a feedback was published, user and the text of the feedback
-    const [Feedback, setFeedback] = useState({date: new Date(), user: user, text: null});
+    const {FeedbackData, setFeedbackData} = useContext(FeedbackContext);
     //State to open/close modal
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-    
+    //Refs to access feedback and modal value
+    const FeedbackRef = useRef();
+    const ModalRef = useRef();
+
     const SendFeedback = (e) => 
     {
         e.preventDefault();
-        setFeedback(oldValue => ({...oldValue, text: document.querySelector(".rating").value}));    
+        //We remove white spaces from start and end
+        FeedbackRef.current.value = FeedbackRef.current.value.trim();
+        const {showSuccessToast, showErrorToast} = ToastMessage();
+
+        const FeedbackStatus = CheckFeedback(FeedbackRef.current.value);
+
+        if(FeedbackStatus) {
+            setFeedbackData(oldValue => ({...oldValue, user: user, text: FeedbackRef.current.value, added: oldValue.added+1}));   
+            showSuccessToast("Thanks for your feedback 😊");
+        } 
+        else showErrorToast("Please write a valid feedback 🤯");
     } 
     const OpenFeedback = () => 
     {
-        {user!=='not logged in' && document.getElementById('my_modal_1').showModal();}
+        {user!=='not logged in' && ModalRef.current.showModal();}
         setIsFeedbackOpen(!isFeedbackOpen);
     }
 
@@ -33,17 +49,17 @@ const Feedback = ({productId, user}) =>
                 )
             }
             {/*If Feedback has been written we will update the product  */}
-            {Feedback.text!==null &&
-                <UpdateFeedbackIfExists Feedback={Feedback} productId={productId} />
+            {FeedbackData.text!==null &&
+                <UpdateFeedback Feedback={FeedbackData} productId={productId} />
             }
             
             <>
-                <dialog id="my_modal_1" className="modal">
+                <dialog id="my_modal_1" ref={ModalRef} className="modal">
                     <div className="modal-box p-[2rem] bg-[#F0EEEC] border-0">
                         <h1 className="text-black text-xl font-bold font-sans mb-8">{user}</h1>
                             
                             <form onSubmit={(e) => SendFeedback(e)} noValidate className="w-full flex flex-col">
-                                <textarea rows="3" className="rating bg-[#F0EEEC] p-4 text-gray-500 rounded-xl resize-none"
+                                <textarea rows="3" ref={FeedbackRef} className="bg-[#F0EEEC] p-4 text-gray-500 rounded-xl resize-none"
                                 placeholder="Leave a message">
                                 </textarea>
                                 <button className="mx-auto w-[230px] py-3 my-8 text-md bg-[#ffc371] rounded-md text-black font-sans hover:text-black hover:bg-[#ffcf8d]">Comment now</button>
