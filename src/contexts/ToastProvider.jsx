@@ -1,11 +1,11 @@
 
-import useToastContainer from "@hooks/useToastContainer.jsx";
+import ToastMessage from "@utilities/ToastMessage.jsx";
 import { ToastContainer } from 'react-toastify';
 
 //Provider to render globally ToastContainer message in all aplication
 const ToastProvider = ({ children }) => 
     {
-        useToastContainer();
+        ToastMessage();
             return (
                 <>
                     {children}

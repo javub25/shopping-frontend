@@ -1,12 +1,12 @@
 
-import useToastContainer from '@hooks/useToastContainer.jsx';
+import ToastMessage from '@utilities/ToastMessage.jsx';
 import ApiClient from '@http/ApiClient.jsx';
 import createAbortController from '@http/AbortController.jsx';
 
 const SignIn = (Data, setUser, controllerRef) => 
 {
     const API = import.meta.env.VITE_STRAPI_API_URL;
-    const { showSuccessToast, showErrorToast } = useToastContainer();
+    const { showSuccessToast, showErrorToast } = ToastMessage();
 
     const user = {identifier: Data.get("Email"), password: Data.get("Password")};
     const endpoint = `${API}/api/auth/local`;

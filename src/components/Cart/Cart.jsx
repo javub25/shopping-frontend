@@ -2,8 +2,9 @@ import { useContext } from "react";
 import close from "@assets/icons/close.svg";
 import {CartContext} from "@contexts/CartContext.jsx";
 import {UserContext} from "@contexts/UserContext.jsx";
-import useToastContainer from '@hooks/useToastContainer.jsx';
 import PostProductsUser from "@services/PostProductsUser.jsx";
+import ToastMessage from '@utilities/ToastMessage.jsx';
+
 
 const Cart = ({ isOpen, onClose }) => {
     
@@ -11,7 +12,7 @@ const Cart = ({ isOpen, onClose }) => {
     const {user, } = useContext(UserContext);
     let TotalPrice = 0;
 
-    const { showSuccessToast, showErrorToast } = useToastContainer();
+    const { showSuccessToast, showErrorToast } = ToastMessage();
 
     const ModalClose = () => onClose(oldValue => !oldValue);
 
@@ -95,7 +96,7 @@ const Cart = ({ isOpen, onClose }) => {
                                                     </ul>
                                                 )
                                             })}
-
+                                            
                                             <button className="text-sm text-center rounded-md p-[14px] bg-[#ffc371] text-[#213547] 
                                             hover:bg-[#ffcf8d] hover:text-[#213547] w-[190px] mx-auto font-normal font-sans" 
                                             onClick={() => removeCart(setCart)}>Remove Cart</button>
@@ -109,16 +110,13 @@ const Cart = ({ isOpen, onClose }) => {
                                             <button onClick={BuyItems} className="mx-auto block w-[230px] rounded-md bg-[#ffc371] text-[#213547] hover:text-black hover:bg-[#ffcf8d] p-3 text-center text-sm font-normal font-sans">
                                                 Proceed to Checkout
                                             </button>
+
                                         </>
                                     }
-                        </section>
-                            
-                           
+                        </section>                           
                     </div>
                 </div>
             </div>
-          
-          
         </>
     );
 }

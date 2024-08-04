@@ -19,6 +19,13 @@ const CheckEmail = (email) =>
         if(!emailRegex.test(email)) return false;
             return true;
 }
+const CheckFeedback = (feedback) =>
+{
+    if(feedback.length === 0) {
+        return false;
+    }
+    else return true;
+}
 
-export {CheckName, CheckPassword, CheckEmail};
+export {CheckName, CheckPassword, CheckEmail, CheckFeedback};
     
